@@ -1,0 +1,47 @@
+.pp{
+	width: 250px;
+	height: 300px;
+	box-shadow: 0 0 0.5rem lightgray;
+	color: lawngreen;
+	position: relative;
+	text-align: center;
+	border-radius: 10px;
+	background: linear-gradient(to left,black,white);
+	left: 200px;
+	top: 200px;
+	background-color: white;
+}
+.password{
+	padding: 1rem;
+	border: none;
+	outline: none;
+	color: red;
+	text-decoration: underline solid lightblue;
+	box-shadow: 0 0 0.5rem lightgray;
+	border-radius: 12px;
+	margin-top: 20px;
+	background: linear-gradient(to left,black,white);
+}
+.password:hover{
+	box-shadow: 0 0 0.5rem greenyellow;
+}
+.password1:hover{
+	box-shadow: 0 0 0.5rem greenyellow;
+}
+::placeholder{
+	color: lightgray;
+}
+.password1{
+	padding: 1rem;
+	border: none;
+	outline: none;
+	color: lightgray;
+	text-decoration: underline solid lightblue;
+	box-shadow: 0 0 0.5rem lightgray;
+	border-radius: 12px;
+	margin-top: 20px;
+	background: linear-gradient(to left,black,white);
+}
+td,tr{
+	border: 1px solid black
+}
