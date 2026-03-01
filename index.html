@@ -1,77 +1,386 @@
 <!DOCTYPE html>
-<html>
-	<head>
-		<title>DIGESTION IN MAN</title>
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta charset="utf-8">
-		<link rel="stylesheet" href="d.css">
-		<meta name="keywords" content="enzymes,digestion,teeth">
-		<meta name="description" content="digestion is the breakdown of food">
-		<meta name="author" content="kato lumu">
-		<link rel="icon" href="digestion.jpg">
-	</head>
-	<body>
-		<div class="wrapper">
-			<div id="tall">
-				<div class="head">
-					<header>
-						<h1>DIGESTION</h1>
-						<p>This refers to the breakdown of complex food particles into simple soluble compounds that can be absorbed and assimilated by the body.</p>
-					</header>
-				</div>
-			</div>
-			<div>
-				<aside>
-					<button class="a">
-						<a href="mouth.html" target="_blank">Mouth</a>
-					</button>
-					<button class="a">
-						<a href="stomach.html" target="_blank">Stomach</a>
-					</button>
-					<button class="a">
-						<a href="lonely.html" target="_blank">Duodenum</a>
-					</button>
-					<button class="a">
-						<a href="ileum.html" target="_blank">ileum</a>
-					</button>
-				</aside>
-			<div>
-			<main>
-				<dl><dt><h2>Their are two types of digestion namely;</h2><dt>
-					<dd>
-						Mechanical digestion<br>
-						Chemical digestion
-					</dd>
-				</dl>
-				<h2><dl><dt>Mechanical digestion.<dt></h2>
-					<dd>This is the breakdown of food by the help of the teeth but not enzymes.<br>
-					<ul>
-						<li>This only takes place in the mouth.</li>
-					</ul>
-					</dd>
-				</dl>
-				<dl><dt><h2>Chemical digestion.</h2><dt>
-					<dd>This is the breakdown of food due to enzyme actoin.<br>
-					<ul>
-						<li>This is the type of digestion which takes place in almost all parts of the system.</li>
-					</ul></dd>
-				</dl>
-				<h2>Note</h2>
-				<p>Extracellular digestion is the digestion in man</p>
-			</main>
-			<footer id="tall">
-			<div>
-				<p>Extracellular digestion is when digestion takes place out side the body cells.</p>
-				<h2>NB</h2>
-				<p>This may not necessarily be outside the body cells but it may occur inside the body but not in the cells.</p>
-			</div>
-				<div id="mail">
-					<button class="a">
-						<a href="kato.html"</a>
-					</button>
-				</div>
-			</footer>
-		</div>
-	</body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ElectroTech Pro — Your Trusted Electronic Technician</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --surface: #ffffff;
+      --text: #1e1e1e;
+      --muted: #555;
+      --accent: #0078ff;
+      --accent-2: #00e5a8;
+      --shadow: 0 6px 20px rgba(0,0,0,.08);
+    }
+    [data-theme="dark"] {
+      --bg: #0b1220;
+      --surface: #141a2a;
+      --text: #e8ecf3;
+      --muted: #a8b3c6;
+      --accent: #4cc9f0;
+      --accent-2: #8af5bd;
+      --shadow: 0 8px 24px rgba(0,0,0,.6);
+    }
+    .try{
+      background-color: hsl(0, 0%, 24%);
+      backdrop-filter: blur;
+      width: 100px;
+      text-decoration: none;
+    }
 
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; font-family: Inter, Roboto, system-ui, -apple-system, "Segoe UI", Arial; background: var(--bg); color: var(--text); }
+
+    /* Global container for subtle glow effect on hero */
+    .page {
+      min-height: 100vh;
+      background: radial-gradient(1200px circle at 20% -10%, rgba(0,0,0,.04), transparent 40%),
+                  radial-gradient(800px circle at 100% 0%, rgba(0, 102, 204, .07), transparent 40%),
+                  var(--bg);
+    }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky; top: 0; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 14px 20px; gap: 12px;
+      background: rgba(255,255,255,0.9);
+      backdrop-filter: saturate(1.2) blur(6px);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      transition: background .3s ease;
+    }
+    [data-theme="dark"] .navbar { background: rgba(20,26,42,.95); border-bottom: 1px solid rgba(255,255,255,.08); }
+
+    .brand {
+      display: flex; align-items: center; gap: 12px;
+      text-decoration: none; color: inherit;
+    }
+    .brand-logo {
+      width: 38px; height: 38px; border-radius: 9px;
+      background: conic-gradient(from 180deg at 50% 50%, #4cc9f0, #00e5a8, #ffd166, #4cc9f0);
+      display: grid; place-items: center;
+      box-shadow: 0 6px 16px rgba(0,0,0,.15);
+    }
+    .brand-title { font-weight: 800; letter-spacing: .5px; }
+    .brand-sub { font-size: 12px; color: var(--muted); display: block; margin-top: -6px; }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 14px;
+      list-style: none; padding: 0; margin: 0;
+    }
+    .nav-links a {
+      text-decoration: none; color: var(--text);
+      padding: 8px 12px; border-radius: 8px;
+      transition: background .2s, color .2s;
+    }
+    .nav-links a:hover { background: rgba(0,0,0,.07); }
+
+    .btn {
+      border: none; padding: 10px 14px; border-radius: 8px;
+      cursor: pointer; font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn.primary {
+      background: var(--accent); color: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    }
+    .btn.secondary {
+      background: transparent; color: var(--text);
+      border: 1px solid rgba(0,0,0,.15);
+    }
+    .icon {
+      width: 16px; height: 16px; display: inline-block;
+    }
+
+    /* Mobile menu button (hamburger) */
+    .mobile-toggle {
+      display: none;
+      width: 40px; height: 40px; border-radius: 8px;
+      align-items: center; justify-content: center;
+      background: rgba(0,0,0,.05);
+    }
+    [data-theme="dark"] .mobile-toggle { background: rgba(255,255,255,.08); }
+
+    /* HERO / EYE-CATCHING DESIGN */
+    .hero {
+      padding: 60px 20px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .sparkle {
+      position: absolute; width: 260px; height: 260px; border-radius: 50%;
+      background: radial-gradient(circle at 30% 30%, rgba(255,255,255,.9), rgba(255,255,255,.0) 60%);
+      filter: blur(2px); opacity: .5; pointer-events: none;
+      animation: drift 12s linear infinite;
+    }
+    @keyframes drift {
+      0% { transform: translate(0,0) scale(1); }
+      50% { transform: translate(40px, -20px) scale(1.05); }
+      100% { transform: translate(0,0) scale(1); }
+    }
+
+    .headline {
+      font-size: clamp(28px, 4vw, 52px);
+      line-height: 1.05;
+      margin: 0 auto 12px;
+      max-width: 900px;
+      font-weight: 900;
+      letter-spacing: -0.5px;
+      text-wrap: pretty;
+    }
+    .sub {
+      color: var(--muted); font-size: 1.05rem;
+      max-width: 720px; margin: 0 auto 28px;
+    }
+
+    .cta-row {
+      display: flex; flex-wrap: wrap; gap: 12px; justify-content: center;
+      margin-top: 10px;
+    }
+
+    .hero-card {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 28px; align-items: center; justify-items: center;
+      padding: 40px; border-radius: 20px;
+      background: linear-gradient(135deg, rgba(0,0,0,.04), rgba(0,0,0,.0));
+      max-width: 1100px; margin: 0 auto;
+      box-shadow: var(--shadow);
+    }
+    .hero-card .image {
+      width: 100%; height: 280px; border-radius: 16px;
+      background: linear-gradient(135deg, #0b1220 0%, #1f2a66 40%, #1b9a89 100%);
+      display: grid; place-items: center;
+      color: white; font-weight: 800;
+      font-size: 28px;
+    }
+    .hero-card .content { text-align: left; }
+
+    /* FOOTER */
+    .footer {
+      text-align: center; padding: 28px 12px 60px; color: var(--muted);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .mobile-toggle { display: inline-flex; }
+      .hero-card { grid-template-columns: 1fr; padding: 24px; }
+      .hero { padding: 40px 16px; }
+      .sparkle { width: 180px; height: 180px; }
+    }
+
+    /* MOBILE MENU OVERLAY (optional) */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: 60px; left: 0; right: 0;
+      background: var(--surface);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      padding: 14px;
+    }
+    [data-theme="dark"] .mobile-menu { background: #0e162b; border-bottom: 1px solid rgba(255,255,255,.08); }
+    .mobile-menu a {
+      display: block; padding: 10px 12px; border-radius: 6px;
+      text-decoration: none; color: var(--text);
+    }
+    .mobile-menu a:hover { background: rgba(0,0,0,.05); }
+
+    .mobile-menu.active { display: block; }
+  </style>
+</head>
+<body>
+  <div class="page" id="page">
+    <!-- NAVBAR -->
+    <nav class="navbar" aria-label="Main Navigation">
+      <a href="#" class="brand" aria-label="ElectroTech Pro home">
+        <div class="brand-logo" aria-hidden="true">ET</div>
+        <div>
+          <div class="brand-title">King Accessories Mityana Namungo </div>
+          <span class="brand-sub">Electronic Technician Services</span>
+        </div>
+      </a>
+
+      <ul class="nav-links" id="desktop-links">
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#reviews">Reviews</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <!-- Theme toggle and mobile toggle -->
+      <button class="btn secondary" id="theme-toggle" aria-label="Toggle light/dark mode">
+        <span id="theme-icon" aria-hidden="true">🌗</span> Theme
+      </button>
+
+      <button class="mobile-toggle btn" id="mobile-toggle" aria-label="Show navigation on mobile">
+        ☰
+      </button>
+    </nav>
+
+    <!-- Mobile Menu (hidden by default; toggled with the mobile button) -->
+    <div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation">
+      <a href="#services" onclick="toggleMobileMenu()" class="try">Services</a>
+      <a href="#about" onclick="toggleMobileMenu()" class="try">About</a>
+      <a href="#reviews" onclick="toggleMobileMenu()" class="try">Reviews</a>
+      <a href="#contact" onclick="toggleMobileMenu()" class="try">Contact</a>
+      <div style="height:8px"></div>
+      <button class="btn" onclick="toggleMobileMenu()">Close</button>
+    </div>
+
+    <!-- HERO / EYE-CATCHING DESIGN -->
+    <section class="hero" id="home" aria-label="Hero section">
+      <div class="sparkle" style="top: -40px; left: -20px; animation-delay: 0s;"></div>
+      <div class="sparkle" style="bottom: -60px; right: -40px; width: 180px; height: 180px; animation-delay: 2s;"></div>
+
+      <h1 class="headline">Reliable Electronic Technician for Home and Industry</h1>
+      <p class="sub">
+        From PCB repairs and diagnostics to complex hardware troubleshooting, ElectroTech Pro delivers fast, high-quality repairs with transparent pricing.
+        We specialize in consumer electronics, industrial controllers, and embedded systems. Your device, fully repaired and tested.
+      </p>
+
+      <div class="cta-row">
+        <a href="#contact" class="btn primary" aria-label="Contact ElectroTech Pro">
+          Get a Free Diagnostic
+        </a>
+        <a href="#services" class="btn secondary" aria-label="See services">
+          View Services
+        </a>
+      </div>
+
+      <div class="hero-card" style="margin-top: 28px;">
+        <div class="image" aria-label="Tech workstation">
+          Tech Lab
+        </div>
+        <div class="content">
+          <h2 style="margin-top:0; font-size:1.6rem;">Why choose ElectroTech Pro?</h2>
+          <ul style="line-height:1.7; padding-left:18px;">
+            <li>Certified technician with 10+ years of experience</li>
+            <li>Fast turnaround and transparent pricing</li>
+            <li>On-site and remote diagnostics available</li>
+            <li>Warranty on repaired components</li>
+          </ul>
+          <p style="margin-top:8px; color:var(--muted);">
+            Serving residential clients and small businesses. Contact us for urgent repairs or booked service.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADDITIONAL CONTENT SECTIONS (for demonstration) -->
+    <section id="services" aria-labelledby="services-heading" style="padding:40px 20px;">
+      <h2 id="services-heading" style="text-align:center; font-size:1.9rem; margin:0 0 12px;">Services We Offer</h2>
+      <p style="text-align:center; color:var(--muted); margin-bottom:20px;">
+        Comprehensive electronics repair and testing services.
+      </p>
+      <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap:16px; max-width:1100px; margin:0 auto;">
+        <div class="service-card" style="padding:16px; border-radius:12px; background:var(--surface); box-shadow:var(--shadow);">
+          <strong>PCB Troubleshooting</strong>
+          <p style="color:var(--muted); margin:6px 0 0;">Diagnostics, component testing, rework, and soldering.</p>
+        </div>
+        <div class="service-card" style="padding:16px; border-radius:12px; background:var(--surface); box-shadow:var(--shadow);">
+          <strong>Repair & Replacement</strong>
+          <p style="color:var(--muted); margin:6px 0 0;">Capacitors, ICs, power supplies, and more with parts sourcing.</p>
+        </div>
+        <div class="service-card" style="padding:16px; border-radius:12px; background:var(--surface); box-shadow:var(--shadow);">
+          <strong>Diagnostics & Testing</strong>
+          <p style="color:var(--muted); margin:6px 0 0;">Functionality tests, load testing, and burn-in.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" aria-labelledby="about-heading" style="padding:40px 20px; background: rgba(0,0,0,.03);">
+      <div class="container" style="max-width:1100px; margin:0 auto;">
+        <h2 id="about-heading" style="text-align:center; font-size:1.9rem; margin:0 0 12px;">About ElectroTech Pro</h2>
+        <p style="text-align:center; color:var(--muted);">
+          We combine hands-on experience with modern diagnostic tools to deliver dependable repairs. Our mission is to extend the life of your electronics with integrity and efficiency.
+        </p>
+      </div>
+    </section>
+
+    <section id="reviews" aria-labelledby="reviews-heading" style="padding:40px 20px;">
+      <div class="container" style="max-width:1100px; margin:0 auto;">
+        <h2 id="reviews-heading" style="text-align:center; font-size:1.9rem; margin:0 0 12px;">What Clients Say</h2>
+        <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap:14px;">
+          <blockquote style="padding:14px; border-left:4px solid var(--accent); background:var(--surface); border-radius:8px;">
+            "Fast, reliable, and affordable. My gaming console was fixed in no time."
+            <br><span style="font-size:.9em; color:var(--muted);">- Jamie L.</span>
+          </blockquote>
+          <blockquote style="padding:14px; border-left:4px solid var(--accent); background:var(--surface); border-radius:8px;">
+            "Professional diagnostics and honest pricing. Highly recommended."
+            <br><span style="font-size:.9em; color:var(--muted);">- Priya K.</span>
+          </blockquote>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="contact-heading" style="padding:40px 20px;">
+      <div class="container" style="max-width:800px; margin:0 auto; text-align:center;">
+        <h2 id="contact-heading" style="font-size:1.9rem; margin-bottom:6px;">Request a Diagnostic</h2>
+        <p style="color:var(--muted); margin-bottom:16px;">Leave your details and we’ll reach out for a quick assessment.</p>
+        <button class="btn primary"><a href="test_2.html" style="text-decoration: none; color: white;">Click and view detail's box  (write your problem)</a></button>
+      </div>
+    </section>
+
+    <footer class="footer" aria-label="Site footer">
+      © <span id="year"></span> ElectroTech Pro. All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    // Theme toggle logic
+    const root = document.documentElement;
+    const page = document.getElementById('page');
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+    const yearEl = document.getElementById('year');
+
+    // Initialize theme from localStorage if available
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      document.documentElement.setAttribute('data-theme', savedTheme);
+      themeIcon.textContent = savedTheme === 'dark' ? '🌞' : '🌗';
+    } else {
+      // default to light
+      document.documentElement.setAttribute('data-theme', 'light');
+      themeIcon.textContent = '🌗';
+    }
+
+    function applyTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      themeIcon.textContent = theme === 'dark' ? '🌞' : '🌗';
+    }
+
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      applyTheme(next);
+    });
+
+    // Mobile menu toggle
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+    function toggleMobileMenu() {
+      const isActive = mobileMenu.classList.contains('active');
+      if (isActive) {
+        mobileMenu.classList.remove('active');
+      } else {
+        mobileMenu.classList.add('active');
+      }
+    }
+    mobileToggle.addEventListener('click', toggleMobileMenu);
+
+    // Update year in footer
+    yearEl.textContent = new Date().getFullYear();
+
+    // Close mobile menu if user resizes to desktop
+    window.addEventListener('resize', () => {
+      if (window.innerWidth > 900) {
+        mobileMenu.classList.remove('active');
+      }
+    });
+  </script>
+</body>
 </html>
