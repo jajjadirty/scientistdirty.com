@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Local Chat (No Server) - 4 Months Retention</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root {
+      --bg: #0b1020;
+      --card: #141a2b;
+      --text: #eef2ff;
+      --muted: #a5b4fc;
+      --accent: #8b5cf6;
+      --overlay: rgba(0,0,0,0.65);
+      --blur: 10px;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      height: 100%;
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+      background: radial-gradient(circle at 20% -10%, #1e1b2e 0, #0b1020 40%), #0b1020;
+      color: var(--text);
+    }
+    .container {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 20px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .chat {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(20,26,43,0.9);
+      border: 1px solid rgba(124, 58, 237, 0.4);
+      box-shadow: 0 8px 28px rgba(0,0,0,.25);
+    }
+    .messages {
+      padding: 14px;
+      overflow-y: auto;
+      flex: 1;
+      background: linear-gradient(#0c1223, #0a0f1e);
+    }
+    .message {
+      margin: 8px 0;
+      padding: 8px 12px;
+      border-radius: 12px;
+      max-width: 80%;
+      word-wrap: break-word;
+      border: 1px solid rgba(139,92,246,.25);
+    }
+    .message.mine { align-self: flex-end; background: rgba(139,92,246,.25); border-color: rgba(139,92,246,.6); }
+    .message.them { align-self: flex-start; background: rgba(34,197,94,.15); border-color: rgba(34,197,94,.6); }
+    .meta {
+      font-size: 11px;
+      color: #c7d2fe;
+      opacity: .9;
+      margin-top: 4px;
+    }
+    .inputBar {
+      display: flex;
+      gap: 8px;
+      padding: 10px;
+      border-top: 1px solid rgba(124,58,237,.4);
+      background: rgba(12, 17, 38, 0.95);
+    }
+    input[type="text"] {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(124,58,237,.6);
+      background: rgba(2,6,23,.9);
+      color: var(--text);
+      outline: none;
+    }
+    textarea {
+      flex: 1;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(124,58,237,.6);
+      background: rgba(2,6,23,.9);
+      color: var(--text);
+      outline: none;
+      resize: none;
+      height: 60px;
+    }
+    button {
+      padding: 12px 16px;
+      border-radius: 10px;
+      border: none;
+      background: var(--accent);
+      color: white;
+      cursor: pointer;
+    }
+    button.secondary {
+      background: #1f1f2e;
+      color: #e2e8f0;
+      border: 1px solid rgba(124,58,237,.6);
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 8px;
+      border-radius: 12px;
+      background: rgba(20,26,43,.8);
+      border: 1px solid rgba(124,58,237,.6);
+    }
+    .title {
+      font-weight: 600;
+    }
+    .subtle { color: var(--muted); font-size: 12px; }
+    /* Blur/login overlay */
+    .overlay {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: var(--overlay);
+      backdrop-filter: blur(var(--blur));
+      -webkit-backdrop-filter: blur(var(--blur));
+      z-index: 999;
+    }
+    .panel {
+      width: min(420px, 92vw);
+      padding: 22px;
+      border-radius: 14px;
+      background: rgba(15, 17, 40, 0.95);
+      border: 1px solid rgba(124,58,237,.6);
+      box-shadow: 0 20px 60px rgba(0,0,0,.5);
+      text-align: center;
+    }
+    .panel h2 { margin: 0 0 8px; }
+    .panel p { margin: 0 0 16px; color: #c7d2fe; }
+    .pwdInput, .nameInput {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid rgba(124,58,237,.6);
+      background: rgba(2,6,23,.95);
+      color: #e8eaff;
+      font-size: 16px;
+    }
+    .hint { font-size: 12px; color: #a3a3a3; margin-top: 8px; }
+    .hidden { display: none; }
+    .footer {
+      display: flex; justify-content: center; align-items: center; margin-top: 8px;
+    }
+    .badge {
+      font-size: 12px; padding: 6px 10px; border-radius: 999px;
+      background: rgba(139,92,246,.25); color: #d9d4fb;
+      border: 1px solid rgba(139,92,246,.6);
+    }
+    @media (max-width: 700px) {
+      .panel { padding: 16px; }
+      .messages { padding: 10px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header" aria-label="Chat header">
+      <div class="title">Local Chat (No Server)</div>
+      <div class="subtle" id="retentionNote"></div>
+    </div>
+
+    <div class="chat" id="chat" aria-label="Chat window">
+      <div class="messages" id="messages"></div>
+      <div class="inputBar" aria-label="Message input bar">
+        <input type="text" id="input" placeholder="Type a message..." autocomplete="off" />
+        <textarea id="name" placeholder="Your name" aria-label="Name" rows="1"></textarea>
+        <button id="sendBtn" title="Send">Send</button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Blur/Login Overlay -->
+  <div class="overlay" id="overlay" aria-label="Name overlay">
+    <div class="panel">
+      <h2>Welcome</h2>
+      <p>Enter your name to personalize messages. The chat data stays on this device only.</p>
+      <textarea id="nameInput" class="nameInput" placeholder="Enter your name (e.g., Alex)" rows="2"></textarea>
+      <div class="hint" id="nameHint" style="display:none;">This hint is hidden by default.</div>
+      <div class="footer" style="justify-content:center;">
+        <button id="unlockBtn">Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Configuration
+    const PASSWORD = "king"; // Kept for compatibility; overlay now uses a simple name step instead
+    const STORAGE_KEY = "local_chat_messages_v1";
+    const EXPIRY_MONTHS = 4;
+    // Helpers
+    function now() { return new Date(); }
+    function toLocalString(d) {
+      return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) +
+             " • " + d.toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+    }
+    function expiryDate(baseDate = new Date(), months = EXPIRY_MONTHS) {
+      const d = new Date(baseDate);
+      d.setMonth(d.getMonth() + months);
+      return d;
+    }
+    function isExpired(ts) {
+      return new Date(ts) < new Date();
+    }
+
+    // Storage helpers
+    function loadMessages() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return [];
+        const parsed = JSON.parse(raw);
+        const nowTs = Date.now();
+        const kept = parsed.filter(m => m.expiry && m.expiry > nowTs);
+        if (kept.length !== parsed.length) {
+          saveMessages(kept);
+        }
+        return kept;
+      } catch (e) {
+        console.error("Failed to load messages", e);
+        return [];
+      }
+    }
+    function saveMessages(arr) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(arr));
+    }
+
+    // Rendering
+    const messagesEl = document.getElementById("messages");
+    function renderMessages(list) {
+      messagesEl.innerHTML = "";
+      list.forEach(m => {
+        const div = document.createElement("div");
+        div.className = "message " + (m.mine ? "mine" : "them");
+        // Prefix with name if available
+        const displayText = m.name ? (m.name + ": " + m.text) : m.text;
+        div.textContent = displayText;
+        const meta = document.createElement("div");
+        meta.className = "meta";
+        const ts = new Date(m.createdAt);
+        meta.textContent = ts.toLocaleString();
+        div.appendChild(meta);
+        messagesEl.appendChild(div);
+      });
+      messagesEl.scrollTop = messagesEl.scrollHeight;
+    }
+
+    // App state
+    let messages = [];
+    function addMessage(text) {
+      if (!text?.trim()) return;
+      const name = localStorage.getItem("local_chat_user_name") || "";
+      const m = {
+        text: text.trim(),
+        name,
+        mine: true,
+        createdAt: Date.now(),
+        expiry: expiryDate(new Date(), EXPIRY_MONTHS).getTime()
+      };
+      messages.push(m);
+      saveMessages(messages);
+      renderMessages(messages);
+    }
+
+    // Initialize UI
+    function setupUI() {
+      // Load existing messages
+      messages = loadMessages();
+      renderMessages(messages);
+      updateRetentionHint();
+
+      // Name field handling
+      const input = document.getElementById("input");
+      const nameField = document.getElementById("name");
+      const sendBtn = document.getElementById("sendBtn");
+
+      function sendFromInput() {
+        // Use provided name or last saved name
+        let name = "";
+        if (nameField.value && nameField.value.trim()) {
+          name = nameField.value.trim();
+          localStorage.setItem("local_chat_user_name", name);
+        } else {
+          name = localStorage.getItem("local_chat_user_name") || "";
+        }
+        // If name exists, you might prepend to message locally; we keep name in message object
+        const text = input.value;
+        if (!text.trim()) return;
+        // Ensure message stores the name
+        const m = {
+          text: text.trim(),
+          name,
+          mine: true,
+          createdAt: Date.now(),
+          expiry: expiryDate(new Date(), EXPIRY_MONTHS).getTime()
+        };
+        messages.push(m);
+        saveMessages(messages);
+        renderMessages(messages);
+        input.value = "";
+      }
+
+      sendBtn.addEventListener("click", sendFromInput);
+      input.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+          e.preventDefault();
+          sendFromInput();
+        }
+      });
+
+      // Periodic cleanup (in case the user keeps page open)
+      setInterval(() => {
+        const beforeCount = messages.length;
+        const nowTs = Date.now();
+        messages = messages.filter(m => m.expiry > nowTs);
+        if (messages.length !== beforeCount) {
+          saveMessages(messages);
+          renderMessages(messages);
+        }
+      }, 60 * 1000); // every minute
+    }
+
+    function updateRetentionHint() {
+      const n = EXPIRY_MONTHS;
+      const note = document.getElementById("retentionNote");
+      note.textContent = `Chats retained for ${n} months from creation.`;
+    }
+
+    // Overlay logic: simplified name capture
+    const overlay = document.getElementById("overlay");
+    const nameInput = document.getElementById("nameInput");
+    const unlockBtn = document.getElementById("unlockBtn");
+
+    function unlock() {
+      const val = nameInput.value;
+      const finalName = (val || "").trim();
+      if (finalName.length > 0) {
+        localStorage.setItem("local_chat_user_name", finalName);
+        // Dismiss overlay
+        overlay.style.transition = "opacity 0.25s ease";
+        overlay.style.opacity = "0";
+        setTimeout(() => overlay.style.display = "none", 250);
+      } else {
+        nameInput.value = "";
+        nameInput.placeholder = "Please enter your name to continue.";
+      }
+    }
+
+    unlockBtn.addEventListener("click", unlock);
+    nameInput.addEventListener("keydown", (e) => {
+      if (e.key === "Enter") unlock();
+    });
+
+    // Initialize
+    (function init() {
+      // If a name already exists, skip to UI immediately
+      if (localStorage.getItem("local_chat_user_name")) {
+        overlay.style.display = "none";
+      }
+      setupUI();
+    })();
+  </script>
+</body>
+</html>
